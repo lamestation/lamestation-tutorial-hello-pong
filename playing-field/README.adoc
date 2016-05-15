@@ -183,6 +183,8 @@ PUB Main
     gfx.Sprite (@paddle_gfx, 4, 32, 0)
 ----
 
+image:playingfield1.png[]
+
 === Finding Our Center
 
 It's 
