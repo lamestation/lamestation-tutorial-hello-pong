@@ -11,6 +11,5 @@
 * Number's Game
 * Settle The Score
 * [Going Further](going-further/README.adoc)
-* Uno a Uno
 * Spring Loaded
 
