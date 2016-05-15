@@ -1,7 +1,7 @@
 # Summary
 
 * [Hello Pong](README.adoc)
-* Set The Stage
+* The Playing Field
 * Restructured
 * The Ball
 * The Player
