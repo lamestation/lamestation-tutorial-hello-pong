@@ -12,5 +12,5 @@
 * Going Further
 * Uno a Uno
 * Spring Loaded
-* Settling The Score
+* Settle The Score
 
