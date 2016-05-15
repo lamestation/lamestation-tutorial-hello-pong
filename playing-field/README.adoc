@@ -32,7 +32,7 @@ This is a pong game, so thing ping pong. What does it need?
 - A table
 - A score board
 
-==== A ball
+==== A Ball
 
 Add the graphics for the ball. A giant white square for consistency, but you can make the ball whatever you want it to be.
 
@@ -76,7 +76,7 @@ DAT
 ball_gfx
 ----
 
-==== A paddle
+==== A Paddle
 
 [source, language='dat']
 .HelloPong.spin
