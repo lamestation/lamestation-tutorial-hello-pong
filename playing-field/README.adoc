@@ -1,2 +1,219 @@
-= The Playing Field
+== The Playing Field
 
+Start with LameStation Basic Template again.
+
+[source]
+.HelloPong.spin
+----
+CON
+    _clkmode = xtal1 + pll16x
+    _xinfreq = 5_000_000
+
+OBJ
+    lcd  : "LameLCD"
+    gfx  : "LameGFX"
+    ctrl : "LameControl"
+
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+----
+
+This is a pong game, so thing ping pong. What does it need?
+
+// picture of ping pong table would be nice.
+
+- A ball
+- Two paddles
+- A table
+- A score board
+
+
+=== A ball
+
+Add the graphics for the ball. A giant white square for consistency, but you can make the ball whatever you want it to be.
+
+[source, language='dat']
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
++++
++++DAT
++++
++++    ball_gfx
++++    word    0
++++    word    8, 8
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
+----
+
+Now draw the ball to a spot in the center of the screen.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
++++    
++++    gfx.Sprite (@ball_gfx, 64, 32, 0)
++++    
++++    lcd.Draw
+
+DAT
+
+ball_gfx
+----
+
+=== A paddle
+
+[source, language='dat']
+.HelloPong.spin
+----
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
++++
++++    paddle_gfx
++++    word    0
++++    word    8, 16
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
+----
+
+You need to draw the paddles twice, once on each side of the screen.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
++++    gfx.Sprite (@paddle_gfx, 4, 32, 0)
++++    gfx.Sprite (@paddle_gfx, 124, 32, 0)
+    
+    lcd.Draw
+----
+
+=== A Table
+
+It's kind of a misnomer that they call it pong, because this game really plays more like an air hockey machine.
+
+// picture of air hockey machine from above.
+
+But oh, well, history is history, and I guess it's kind of like ping pong. So let's draw our net: how about a dotted line down the middle?
+
+We could create a single graphic for the entire net, but that would be incredibly wasteful. Instead, we will add one little piece of the net that we will use to stamp the whole net.
+
+// diagram of how stamping works
+
+Let's put all the graphics on the screen. Obviously, they need to be in the middle of the screen, but what we have now does not look good.
+
+Two things:
+
+- The ball and paddles are already white, so let's make the net gray. A gray pixel is `%%3` on LameStation.
+- The ball and paddles are on top of the table, so the net must be drawn first.
+
+We'll add the graphics for the center line. It's just a tiny gray smudge.
+
+[source, language='dat']
+.HelloPong.spin
+----
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
++++
++++    centerline_gfx
++++    word    0
++++    word    2, 4
++++    word    %%33
++++    word    %%33
++++    word    %%33
++++    word    %%33
+----
+
+Then we add our first variable `i` just for array indexing.
+
+[source]
+.HelloPong.spin
+----
+VAR
+    byte    i
+----
+
+We'll draw that little spot on the screen 8 times, for a dotted line 64 pixels long.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+
++++    repeat i from 0 to 7
++++        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
+    gfx.Sprite (@paddle_gfx, 4, 32, 0)
+----
+
+=== Finding Our Center
+
+It's 
+
+=== Show Us Your Stuff
+
+- set up with static ints -- ThePlayingField1.spin
+
+
+
+
+=== Variability
+
+- then add variables (bytes, to reveal later why it must be changed to long)
+
+
+
+
+=== Just Right
+
+- center with gfx.Height (@paddle_gfx) / 2 (a minor correction)
+
+[source, language='pub']
+.HelloPong.spin
+----
+    ballx := 64 - gfx.Width(@ball_gfx)/2
+    bally := 32 - gfx.Height(@ball_gfx)/2
+    
+    playerx := 4
+    playery := 32 - gfx.Height (@paddle_gfx) / 2
+
+    opponentx := 124 - gfx.Width (@paddle_gfx)
+    opponenty := 32 - gfx.Height (@paddle_gfx) / 2
+----
