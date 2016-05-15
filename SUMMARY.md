@@ -9,8 +9,8 @@
 * When Paddles Collide
 * A Quick Fix
 * Number's Game
+* Settle The Score
 * Going Further
 * Uno a Uno
 * Spring Loaded
-* Settle The Score
 
