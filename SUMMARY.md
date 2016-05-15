@@ -1,7 +1,7 @@
 # Summary
 
 * [Hello Pong](README.adoc)
-* The Playing Field
+* [The Playing Field](playing-field/README.adoc)
 * Restructured
 * The Ball
 * The Player
