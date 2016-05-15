@@ -9,3 +9,7 @@ Add a two-player mode. Instead of controlling it with the bad AI, make the A and
 === Spring loaded
 
 - Add a spring loaded feature the paddles, so that the player can add an extra oomph to the ball if they time their strike just right.
+
+=== Power-ups?
+
+Create a randomly appearing item that, when collided with the ball, boosts the speed of the game, or slows the opponent, or something else awesome.
