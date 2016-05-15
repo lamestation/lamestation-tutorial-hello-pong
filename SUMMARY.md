@@ -6,7 +6,7 @@
 * The Player
 * The Opponent
 * The Ball
+* When Paddles Collide
 * A Quick Fix
 * Number's Game
-* When Paddles Collide
 
