@@ -1,5 +1,7 @@
 == The Playing Field
 
+In this section, we're going to lay the groundwork for our pong game by adding the basic graphics and laying them out on the screen.
+
 === Instructions
 
 Start with LameStation Basic Template again.
