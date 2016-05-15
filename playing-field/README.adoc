@@ -1,5 +1,7 @@
 == The Playing Field
 
+=== Instructions
+
 Start with LameStation Basic Template again.
 
 [source]
@@ -29,7 +31,7 @@ This is a pong game, so thing ping pong. What does it need?
 - A score board
 
 
-=== A ball
+==== A ball
 
 Add the graphics for the ball. A giant white square for consistency, but you can make the ball whatever you want it to be.
 
@@ -73,7 +75,7 @@ DAT
 ball_gfx
 ----
 
-=== A paddle
+==== A paddle
 
 [source, language='dat']
 .HelloPong.spin
@@ -120,7 +122,7 @@ PUB Main
     lcd.Draw
 ----
 
-=== A Table
+==== A Table
 
 It's kind of a misnomer that they call it pong, because this game really plays more like an air hockey machine.
 
@@ -185,37 +187,75 @@ PUB Main
 
 image:playingfield1.png[]
 
-=== Finding Our Center
+=== The Code
 
-It's 
-
-=== Show Us Your Stuff
-
-- set up with static ints -- ThePlayingField1.spin
-
-
-
-
-=== Variability
-
-- then add variables (bytes, to reveal later why it must be changed to long)
-
-
-
-
-=== Just Right
-
-- center with gfx.Height (@paddle_gfx) / 2 (a minor correction)
-
-[source, language='pub']
+[source]
 .HelloPong.spin
 ----
-    ballx := 64 - gfx.Width(@ball_gfx)/2
-    bally := 32 - gfx.Height(@ball_gfx)/2
+CON
+    _clkmode = xtal1 + pll16x
+    _xinfreq = 5_000_000
     
-    playerx := 4
-    playery := 32 - gfx.Height (@paddle_gfx) / 2
+OBJ
+    lcd  : "LameLCD"
+    gfx  : "LameGFX"
+    ctrl : "LameControl"
+    
+VAR
+    byte    i
 
-    opponentx := 124 - gfx.Width (@paddle_gfx)
-    opponenty := 32 - gfx.Height (@paddle_gfx) / 2
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+
+    repeat i from 0 to 7
+        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
+    gfx.Sprite (@paddle_gfx, 4, 32, 0)
+    gfx.Sprite (@paddle_gfx, 124, 32, 0)
+    
+    lcd.Draw
+
+DAT
+
+    ball_gfx
+    word    0
+    word    8, 8
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    
+    paddle_gfx
+    word    0
+    word    8, 16
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    
+    centerline_gfx
+    word    0
+    word    2, 4
+    word    %%33
+    word    %%33
+    word    %%33
+    word    %%33
 ----
