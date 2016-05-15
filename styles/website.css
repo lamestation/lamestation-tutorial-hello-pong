@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: SF Atarian System;
-    src: url(http://www.lamestation.com/static/fonts/SFAtarianSystem.ttf);
+    src: url('fonts/SFAtarianSystem.ttf');
 }
 
 @font-face {
     font-family: ARCADE_N;
-    src: url(http://www.lamestation.com/static/fonts/ARCADE_N.TTF);
+    src: url('fonts/ARCADE_N.TTF');
 }
 
 /* general */
