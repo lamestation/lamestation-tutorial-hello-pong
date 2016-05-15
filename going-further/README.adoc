@@ -1,2 +1,11 @@
-= Going Further
+== Going Further
 
+=== Uno a Uno
+
+- use A and B for second player controls instead of AI.
+
+Add a two-player mode. Instead of controlling it with the bad AI, make the A and B buttons provide the second player for HOURS of fun time.
+
+=== Spring loaded
+
+- Add a spring loaded feature the paddles, so that the player can add an extra oomph to the ball if they time their strike just right.
