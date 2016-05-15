@@ -2,7 +2,7 @@
 
 * [Hello Pong](README.adoc)
 * The Field
-* The Structure
+* Restructured
 * The Player
 * The Opponent
 * The Ball
