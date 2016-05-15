@@ -6,7 +6,7 @@
 }
 
 @font-face {
-    font-family: ARCADE_N;
+    font-family: 'Arcade Normal';
     src: url('fonts/ARCADE_N.TTF');
 }
 
@@ -34,7 +34,7 @@
 }
 
 .book .book-summary ul.summary li a {
-    font-family: Arcade Normal;
+    font-family: 'Arcade Normal';
     font-size: 0.7em;
     color: #000;
 }
