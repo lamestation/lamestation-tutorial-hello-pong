@@ -10,7 +10,7 @@
 * A Quick Fix
 * Number's Game
 * Settle The Score
-* Going Further
+* [Going Further](going-further/README.adoc)
 * Uno a Uno
 * Spring Loaded
 
