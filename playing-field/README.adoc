@@ -131,45 +131,39 @@ PUB Main
 
 ==== A Table
 
-There really isn't much to draw here. We could make it fancy and add all kinds of crazy table graphics, but for now, let's keep it simple.
+There really isn't much to draw here. We could make it fancy and add all kinds of crazy table graphics, but for now, let's keep it simple and just make a dotted line for the net.
 
-We could create a single graphic for the entire net, but that would be incredibly wasteful. Instead, we will add one little piece of the net that we will use to stamp the whole net.
+We could create a single image for the entire net, but that would waste program space. Instead, we'll use an image of the dot, and copy it over and over until it makes a line.
 
-// diagram of how stamping works
-
-Let's put all the graphics on the screen. Obviously, they need to be in the middle of the screen, but what we have now does not look good.
-
-Two things:
-
-- The ball and paddles are already white, so let's make the net gray. A gray pixel is `%%3` on LameStation.
-- The ball and paddles are on top of the table, so the net must be drawn first.
-
-We'll add the graphics for the center line. It's just a tiny gray smudge.
 
 [source, language='dat']
 .HelloPong.spin
 ----
     word    %%11111111
     word    %%11111111
-    word    %%11111111
-    word    %%11111111
 +++
 +++    centerline_gfx
 +++    word    0
 +++    word    2, 4
-+++    word    %%33
-+++    word    %%33
-+++    word    %%33
-+++    word    %%33
++++    word    %%11
++++    word    %%11
++++    word    %%11
++++    word    %%11
 ----
 
 Then we add our first variable `i` for array indexing.
 
-[source]
+[source, language='obj']
 .HelloPong.spin
 ----
-VAR
-    byte    i
+    gfx  : "LameGFX"
+    ctrl : "LameControl"
+
++++VAR
++++    byte    i
+
+PUB Main
+    lcd.Start(gfx.Start)
 ----
 
 We'll draw that little spot on the screen 8 times, for a dotted line 64 pixels long.
@@ -187,6 +181,33 @@ PUB Main
     gfx.Sprite (@ball_gfx, 64, 32, 0)
     gfx.Sprite (@paddle_gfx, 4, 32, 0)
 ----
+
+Let's put all the graphics on the screen. Obviously, they need to be in the middle of the screen, but what we have now does not look good.
+
+Two things:
+
+- The ball and paddles are already white, so let's make the net gray. A gray pixel is `%%3` on LameStation.
+- The ball and paddles are on top of the table, so the net must be drawn first.
+
+
+[TIP]
+When writing graphics by hand, a gray pixel is `%%3`.
+
+[source, language='dat']
+.HelloPong.spin
+----
+    centerline_gfx
+    word    0
+    word    2, 4
+***    word    %%33
+***    word    %%33
+***    word    %%33
+***    word    %%33
+----
+
+
+
+
 
 image:playingfield1.png[]
 
