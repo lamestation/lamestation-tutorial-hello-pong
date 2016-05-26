@@ -6,7 +6,7 @@ I think it's kind of a misnomer that it's called pong, because this game really 
 
 But oh, well, history is history, and I guess it's kind of like ping pong, if you were playing in a room the size of the table...
 
-Anyway, in this sectino, we'll add the graphics we need for our game and lay them out on the "field", so we can see what our game will look like.
+Anyway, in this section, we'll add the graphics we need for our game and lay them out on the "field", so we can see what our game will look like.
 
 === Instructions
 
@@ -185,7 +185,7 @@ image:whiteline.png[]
 
 We have a dotted line!
 
-==== The blob
+==== The Blob
 
 There's one problem: everything is the same color so it just kind of blends together.
 
@@ -210,66 +210,8 @@ If we look at it now, it's starting to look pretty slick. Check it out.
 
 image:grayline.png[]
 
-
-==== Finding your center
-
-One _more_ thing to fix: why is everything weirdly off-center?
-
-That's because a sprite's position on the screen is relative to the top-left corner. So if you want to position things correctly on the screen, you have to keep that in mind.
-
-So take this code snippet:
-
-[source, language='pub']
-.HelloPong.spin
-----
-    repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
-    
-    gfx.Sprite (@ball_gfx, 64, 32, 0)
-    gfx.Sprite (@paddle_gfx, 4, 32, 0)
-    gfx.Sprite (@paddle_gfx, 124, 32, 0)
-    
-    lcd.Draw
-----
-
-- The center line is 2 pixels wide, so we should subtract 1 to center it.
-+
-    x = 64 - 1 = 63
-    
-- The left paddle should be 4 pixels from the edge, so it's fine where it is.
-+
-    x = 4
-    
-- The right paddle is falling off the screen! We want its right side 4 pixels from the edge. Since it's 8 pixels wide, we need to subtract 8.
-+
-    x = 124 - 8 = 116
-    
-- Both paddles need to start centered. They're 16 pixels high, so we'll subtract half to center them vertically.
-+
-    y = 32 - 8 = 24
-    
-- The ball is 8 pixels wide and tall, and belongs in the center of the screen.
-+
-    x = 64 - 4 = 60
-    y = 32 - 4 = 28
-
-
-[source, language='pub']
-.HelloPong.spin
-----
-    repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
-    
-    gfx.Sprite (@ball_gfx, 60, 28, 0)
-    gfx.Sprite (@paddle_gfx, 4, 24, 0)
-    gfx.Sprite (@paddle_gfx, 116, 24, 0)
-    
-    lcd.Draw
-----
-
-
 [NOTE]
-You may have noticed we didn't add the score board. That one's a bit more complicated, so we'll add it in a later section.
+You may have noticed we haven't score board graphics yet. That one's a bit more complicated, so we'll add it in a later section.
 
 === The Code
 
@@ -293,11 +235,11 @@ PUB Main
     ctrl.Start
 
     repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
     
-    gfx.Sprite (@ball_gfx, 60, 28, 0)
-    gfx.Sprite (@paddle_gfx, 4, 24, 0)
-    gfx.Sprite (@paddle_gfx, 116, 24, 0)
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
+    gfx.Sprite (@paddle_gfx, 4, 32, 0)
+    gfx.Sprite (@paddle_gfx, 124, 32, 0)
     
     lcd.Draw
 
