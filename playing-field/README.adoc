@@ -33,14 +33,14 @@ This is a pong game, so thing ping pong. What does it need?
 
 // picture of ping pong table would be nice.
 
+- A table
 - A ball
 - Two paddles
-- A table
 - A score board
 
 ==== A Ball
 
-Add the graphics for the ball. I'm using a giant white square because it's very pong-ey, but you can make the ball whatever you want it to be.
+Add the graphics for the ball. A giant white square for consistency, but you can make the ball whatever you want it to be.
 
 [source, language='dat']
 .HelloPong.spin
@@ -64,7 +64,7 @@ PUB Main
 +++    word    %%11111111
 ----
 
-Draw the ball to a nice spot in the center of the screen.
+Now draw the ball to a spot in the center of the screen.
 
 [source]
 .HelloPong.spin
@@ -82,7 +82,7 @@ DAT
 ball_gfx
 ----
 
-==== Two Paddles
+==== A Paddle
 
 The paddle graphics are next. Again, a white rectangle is _pretty much_ what the original pong had, so let's just use that.
 
@@ -113,7 +113,7 @@ The paddle graphics are next. Again, a white rectangle is _pretty much_ what the
 +++    word    %%11111111
 ----
 
-Draw the paddles twice, once on each side of the screen.
+You need to draw the paddles twice, once on each side of the screen.
 
 [source]
 .HelloPong.spin
@@ -131,41 +131,48 @@ PUB Main
 
 ==== A Table
 
-There really isn't much to draw here. We could make it fancy and add all kinds of crazy table graphics, but for now, let's keep it simple and make a dotted line down the center.
+There really isn't much to draw here. We could make it fancy and add all kinds of crazy table graphics, but for now, let's keep it simple.
 
-We could create one image for the entire net, but that would be wasteful. Instead, we'll take a single dot and copy it until it makes a line. Here's a dot we can use.
+We could create a single graphic for the entire net, but that would be incredibly wasteful. Instead, we will add one little piece of the net that we will use to stamp the whole net.
+
+// diagram of how stamping works
+
+Let's put all the graphics on the screen. Obviously, they need to be in the middle of the screen, but what we have now does not look good.
+
+Two things:
+
+- The ball and paddles are already white, so let's make the net gray. A gray pixel is `%%3` on LameStation.
+- The ball and paddles are on top of the table, so the net must be drawn first.
+
+We'll add the graphics for the center line. It's just a tiny gray smudge.
 
 [source, language='dat']
 .HelloPong.spin
 ----
     word    %%11111111
     word    %%11111111
+    word    %%11111111
+    word    %%11111111
 +++
 +++    centerline_gfx
 +++    word    0
 +++    word    2, 4
-+++    word    %%11
-+++    word    %%11
-+++    word    %%11
-+++    word    %%11
++++    word    %%33
++++    word    %%33
++++    word    %%33
++++    word    %%33
 ----
 
-Add a variable `i` for array indexing.
+Then we add our first variable `i` for array indexing.
 
-[source, language='obj']
+[source]
 .HelloPong.spin
 ----
-    ctrl : "LameControl"
- 
-+++VAR
-+++    byte    i    
-
-PUB Main
+VAR
+    byte    i
 ----
 
-We'll draw the dot on the screen 8 times to make a dotted line 64 pixels long. Remember, the ball and paddles sit _on top_ of the table, so the line should be drawn first. 
-
-*It's like painting a picture!*
+We'll draw that little spot on the screen 8 times, for a dotted line 64 pixels long.
 
 [source]
 .HelloPong.spin
@@ -175,100 +182,13 @@ PUB Main
     ctrl.Start
 
 +++    repeat i from 0 to 7
-+++        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
++++        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
     
     gfx.Sprite (@ball_gfx, 64, 32, 0)
     gfx.Sprite (@paddle_gfx, 4, 32, 0)
 ----
-
-image:whiteline.png[]
-
-We have a dotted line!
-
-==== The blob
-
-There's one problem: everything is the same color so it just kind of blends together.
-
-The ball and paddles are white, so let's make the net gray.
-
-[source, language='dat']
-.HelloPong.spin
-----
-    centerline_gfx
-    word    0
-    word    2, 4
-***    word    %%33
-***    word    %%33
-***    word    %%33
-***    word    %%33
-----
-
-[TIP]
-A gray pixel is `%%3` on LameStation.
-
-If we look at it now, it's starting to look pretty slick. Check it out.
 
 image:grayline.png[]
-
-
-==== Finding your center
-
-One _more_ thing to fix: why is everything weirdly off-center?
-
-That's because a sprite's position on the screen is relative to the top-left corner. So if you want to position things correctly on the screen, you have to keep that in mind.
-
-So take this code snippet:
-
-[source, language='pub']
-.HelloPong.spin
-----
-    repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
-    
-    gfx.Sprite (@ball_gfx, 64, 32, 0)
-    gfx.Sprite (@paddle_gfx, 4, 32, 0)
-    gfx.Sprite (@paddle_gfx, 124, 32, 0)
-    
-    lcd.Draw
-----
-
-- The center line is 2 pixels wide, so we should subtract 1 to center it.
-+
-    x = 64 - 1 = 63
-    
-- The left paddle should be 4 pixels from the edge, so it's fine where it is.
-+
-    x = 4
-    
-- The right paddle is falling off the screen! We want its right side 4 pixels from the edge. Since it's 8 pixels wide, we need to subtract 8.
-+
-    x = 124 - 8 = 116
-    
-- Both paddles need to start centered. They're 16 pixels high, so we'll subtract half to center them vertically.
-+
-    y = 32 - 8 = 24
-    
-- The ball is 8 pixels wide and tall, and belongs in the center of the screen.
-+
-    x = 64 - 4 = 60
-    y = 32 - 4 = 28
-
-
-[source, language='pub']
-.HelloPong.spin
-----
-    repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
-    
-    gfx.Sprite (@ball_gfx, 60, 28, 0)
-    gfx.Sprite (@paddle_gfx, 4, 24, 0)
-    gfx.Sprite (@paddle_gfx, 116, 24, 0)
-    
-    lcd.Draw
-----
-
-
-
 
 [NOTE]
 You may have noticed we didn't add the score board. That one's a bit more complicated, so we'll add it in a later section.
@@ -295,7 +215,7 @@ PUB Main
     ctrl.Start
 
     repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
+        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
     
     gfx.Sprite (@ball_gfx, 64, 32, 0)
     gfx.Sprite (@paddle_gfx, 4, 32, 0)

@@ -50,3 +50,250 @@ PUB Main
 +++PUB GameLoop
 +++
 ----
+
+
+
+
+
+
+== The Playing Field
+
+In this section, we're going to lay the groundwork for our pong game by adding the basic graphics and laying them out on the screen.
+
+=== Instructions
+
+
+
+
+==== A Ball
+
+Add the graphics for the ball. A giant white square for consistency, but you can make the ball whatever you want it to be.
+
+[source, language='dat']
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
++++
++++DAT
++++
++++    ball_gfx
++++    word    0
++++    word    8, 8
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
+----
+
+Now draw the ball to a spot in the center of the screen.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
++++    
++++    gfx.Sprite (@ball_gfx, 64, 32, 0)
++++    
++++    lcd.Draw
+
+DAT
+
+ball_gfx
+----
+
+==== A Paddle
+
+[source, language='dat']
+.HelloPong.spin
+----
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
++++
++++    paddle_gfx
++++    word    0
++++    word    8, 16
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
++++    word    %%11111111
+----
+
+You need to draw the paddles twice, once on each side of the screen.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
++++    gfx.Sprite (@paddle_gfx, 4, 32, 0)
++++    gfx.Sprite (@paddle_gfx, 124, 32, 0)
+    
+    lcd.Draw
+----
+
+==== A Table
+
+I think it's kind of a misnomer that it's called pong, because this game really plays more like an air hockey machine than a ping pong table.
+
+// picture of air hockey machine from above.
+
+But oh, well, history is history, and I guess it's kind of like ping pong, if you were playing in a room the size of the table...
+
+Anyway, let's draw our net: how about a dotted line down the middle?
+
+===== Finding Your Center
+
+We could create a single graphic for the entire net, but that would be incredibly wasteful. Instead, we will add one little piece of the net that we will use to stamp the whole net.
+
+// diagram of how stamping works
+
+Let's put all the graphics on the screen. Obviously, they need to be in the middle of the screen, but what we have now does not look good.
+
+Two things:
+
+- The ball and paddles are already white, so let's make the net gray. A gray pixel is `%%3` on LameStation.
+- The ball and paddles are on top of the table, so the net must be drawn first.
+
+We'll add the graphics for the center line. It's just a tiny gray smudge.
+
+[source, language='dat']
+.HelloPong.spin
+----
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
++++
++++    centerline_gfx
++++    word    0
++++    word    2, 4
++++    word    %%33
++++    word    %%33
++++    word    %%33
++++    word    %%33
+----
+
+Then we add our first variable `i` for array indexing.
+
+[source]
+.HelloPong.spin
+----
+VAR
+    byte    i
+----
+
+We'll draw that little spot on the screen 8 times, for a dotted line 64 pixels long.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+
++++    repeat i from 0 to 7
++++        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
+    gfx.Sprite (@paddle_gfx, 4, 32, 0)
+----
+
+image:playingfield1.png[]
+
+=== The Code
+
+[source]
+.HelloPong.spin
+----
+CON
+    _clkmode = xtal1 + pll16x
+    _xinfreq = 5_000_000
+    
+OBJ
+    lcd  : "LameLCD"
+    gfx  : "LameGFX"
+    ctrl : "LameControl"
+    
+VAR
+    byte    i
+
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+
+    repeat i from 0 to 7
+        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
+    gfx.Sprite (@paddle_gfx, 4, 32, 0)
+    gfx.Sprite (@paddle_gfx, 124, 32, 0)
+    
+    lcd.Draw
+
+DAT
+
+    ball_gfx
+    word    0
+    word    8, 8
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    
+    paddle_gfx
+    word    0
+    word    8, 16
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    word    %%11111111
+    
+    centerline_gfx
+    word    0
+    word    2, 4
+    word    %%33
+    word    %%33
+    word    %%33
+    word    %%33
+----
