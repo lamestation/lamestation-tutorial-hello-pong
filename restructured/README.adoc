@@ -336,4 +336,5 @@ In this section, you learned:
 === Think about this!
 
 1. What will happen if you don't call `SetupGame` before running the game?
-2. 
+2. What's the advantage of making `DrawGraphics` a separate function?
+3. Inside `RunGame`, we create a function called `DrawGraphics` that, well, drew graphics. Can you guess the names of some other functions we will create as we add more to the game? What do you think makes a good function name?
