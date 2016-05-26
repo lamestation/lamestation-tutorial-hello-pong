@@ -164,9 +164,7 @@ I think it's kind of a misnomer that it's called pong, because this game really 
 
 But oh, well, history is history, and I guess it's kind of like ping pong, if you were playing in a room the size of the table...
 
-Anyway, let's draw our net: how about a dotted line down the middle?
-
-===== Finding Your Center
+Let's make a dotted
 
 We could create a single graphic for the entire net, but that would be incredibly wasteful. Instead, we will add one little piece of the net that we will use to stamp the whole net.
 
@@ -192,11 +190,30 @@ We'll add the graphics for the center line. It's just a tiny gray smudge.
 +++    centerline_gfx
 +++    word    0
 +++    word    2, 4
-+++    word    %%33
-+++    word    %%33
-+++    word    %%33
-+++    word    %%33
++++    word    %%11
++++    word    %%11
++++    word    %%11
++++    word    %%11
 ----
+
+[TIP]
+When writing graphics by hand, a gray pixel is `%%3`.
+
+[source, language='dat']
+.HelloPong.spin
+----
+    centerline_gfx
+    word    0
+    word    2, 4
+***    word    %%33
+***    word    %%33
+***    word    %%33
+***    word    %%33
+----
+
+
+
+
 
 Then we add our first variable `i` for array indexing.
 
