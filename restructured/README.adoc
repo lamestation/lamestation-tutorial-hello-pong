@@ -10,7 +10,7 @@ Which is... AWESOME!
 
 ==== If a Pong Ball's in a Forest...
 
-Now, before we add graphics and start building out our game, let's take a moment to think about the _defining essence_ of our game.
+Let's take a moment to think about the _defining essence_ of our game.
 
 This is a pong game, so what does a pong game need? In the last section, we made a nice list to answer that question.
 
@@ -21,7 +21,7 @@ This is a pong game, so what does a pong game need? In the last section, we made
 - Two paddles
 - A score board
 
-Now, that's what a pong game _has_, but what about gameplay? What _happens_ in the game?
+Now, that's what a pong game has in it, but what about gameplay? What _happens_ in the game?
 
 - There's a field; it just sits there
 - Either player can move a paddle up or down
@@ -29,13 +29,27 @@ Now, that's what a pong game _has_, but what about gameplay? What _happens_ in t
   - If it hits a paddle, it bounces back the other way
   - If it goes the past paddle, the other player scores a point, and the field resets
 - First one to 9 points wins, and the game starts over
-- The opponent might be a computer
+- The opponent in our game will be a computer
+- Everything needs to be drawn to the screen
 
-That's pretty much it. That's everything that happens in our entire game, so that's how we should organize it.
+That's everything that happens in our game, so that's how we should organize it.
 
-==== Loop de loop
+==== Setup and Go
 
-First and foremost, everything that happens in our game needs to happen in a loop. Loops are the magic that makes the world go round.
+A pattern you will commonly see when programming is a setup / run cycle. That is:
+
+- A *setup* phase where all the key variable and starting conditions for the program are set.
+- A *run* phase where the program continues to operate based on your parameters.
+
+It's kind of like playing with dominoes. You _set up_ all the dominoes, then *run away* when they all start falling down (lol).
+
+We had setup and run code in _SNAKE_, but we did it haphazardly just when we needed it. Now we're going to do it for real.
+
+===== Adding the game loop
+
+First step, let's move what we have into a running loop.
+
+We'll throw a `gfx.Clear` in there too because we'll need one as soon as things start moving.
 
 [source]
 .HelloPong.spin
@@ -43,10 +57,52 @@ First and foremost, everything that happens in our game needs to happen in a loo
 PUB Main
     lcd.Start(gfx.Start)
     ctrl.Start
-+++    
+    
 +++    repeat
-+++        GameLoop
-+++        
-+++PUB GameLoop
++++        RunGame
++++    
++++PUB RunGame
 +++
++++    gfx.Clear
+
+    repeat i from 0 to 7
+        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+    
+    gfx.Sprite (@ball_gfx, 60, 28, 0)
+    gfx.Sprite (@paddle_gfx, 4, 24, 0)
+    gfx.Sprite (@paddle_gfx, 116, 24, 0)
+    
+    lcd.Draw
 ----
+
+===== Adding a draw function
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+    
+    repeat
+        RunGame
+    
+PUB RunGame
+
+    gfx.Clear
+    
+    DrawGame
+
+PUB DrawGame
+
+    repeat i from 0 to 7
+        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+
+    gfx.Sprite (@ball_gfx, 60, 28, 0)
+    gfx.Sprite (@paddle_gfx, 4, 24, 0)
+    gfx.Sprite (@paddle_gfx, 116, 24, 0)
+    
+    lcd.Draw
+----
+
+To create our game setup, let's create
