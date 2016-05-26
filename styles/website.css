@@ -12,7 +12,7 @@
 
 /* general */
 
-.book .book-summary ul.summary li[data-level="0"] a {
+.book .book-summary ul.summary li a.custom-link {
     padding-top: 0.3em;
     font-family: SF Atarian System;
     font-weight: bold;
@@ -20,7 +20,7 @@
     color: #000;
 }
 
-.book .book-summary ul.summary li[data-level="0"] a:hover {
+.book .book-summary ul.summary li a.custom-link:hover {
     color: #000;
     text-shadow:
         -4px -4px 0 #f57a09,
