@@ -183,10 +183,8 @@ Then we change all of our `gfx.Sprite` commands (except `@centerline`) to use th
 
 [source]
 .HelloPong.spin
-----
-PUB RunGame
-
-    gfx.Clear
+----    
+PUB DrawGraphics
 
     repeat i from 0 to 7
         gfx.Sprite (@centerline_gfx, 63, i*8, 0)
@@ -194,8 +192,6 @@ PUB RunGame
 ***    gfx.Sprite (@ball_gfx, ballx, bally, 0)
 ***    gfx.Sprite (@paddle_gfx, playerx, playery, 0)
 ***    gfx.Sprite (@paddle_gfx, opponentx, opponenty, 0)
-    
-    lcd.Draw
 ----
 
 Well, that wasn't so bad! Organizing your code takes a little extra work, but it's totally worth it, because it'll be so much easier to understand in the long run, as the program gets more complicated.
