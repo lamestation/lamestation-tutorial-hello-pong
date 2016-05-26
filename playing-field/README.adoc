@@ -133,34 +133,21 @@ PUB Main
 
 There really isn't much to draw here. We could make it fancy and add all kinds of crazy table graphics, but for now, let's keep it simple and make a dotted line down the center.
 
-We could create one image for the entire net, but that would be wasteful. Instead, we'll take a single dot and copy it until it makes a line.
-
-// diagram of how stamping works
-
-Let's put all the graphics on the screen. Obviously, they need to be in the middle of the screen, but what we have now does not look good.
-
-Two things:
-
-- The ball and paddles are already white, so let's make the net gray. A gray pixel is `%%3` on LameStation.
-- The ball and paddles are on top of the table, so the net must be drawn first.
-
-We'll add the graphics for the center line. It's just a tiny gray smudge.
+We could create one image for the entire net, but that would be wasteful. Instead, we'll take a single dot and copy it until it makes a line. Here's a dot we can use.
 
 [source, language='dat']
 .HelloPong.spin
 ----
     word    %%11111111
     word    %%11111111
-    word    %%11111111
-    word    %%11111111
 +++
 +++    centerline_gfx
 +++    word    0
 +++    word    2, 4
-+++    word    %%33
-+++    word    %%33
-+++    word    %%33
-+++    word    %%33
++++    word    %%11
++++    word    %%11
++++    word    %%11
++++    word    %%11
 ----
 
 Add our first variable `i` for array indexing.
