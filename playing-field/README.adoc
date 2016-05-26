@@ -344,6 +344,8 @@ DAT
     word    %%33
 ----
 
+View this example at `/tutorials/HelloPong/ThePlayingField.spin`.
+
 === Feeling Adventurous?
 
 1. We decided to keep the playing field fairly simple this time around, but what if we wanted to make it nicer? Try spicing up the playing field: make it like a hockey rink or something more than a dotted line!
