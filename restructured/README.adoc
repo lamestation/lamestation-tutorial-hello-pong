@@ -1,4 +1,4 @@
-== Restructured
+== Pong, Restructured
 
 In the _SNAKE_ tutorial, we did the entire game inside of one main function. That's fine for short games, but it becomes more and more problematic the longer your game gets.
 
