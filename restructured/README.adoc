@@ -45,9 +45,9 @@ It's kind of like playing with dominoes. You _set up_ all the dominoes, then *ru
 
 We had setup and run code in _SNAKE_, but we did it haphazardly just when we needed it. Now we're going to do it for real.
 
-===== Adding the game loop
+===== Step 1: Adding the game loop
 
-First step, let's move what we have into a running loop.
+Let's move what we have into a running loop. Having your game loop in a separate function means you can use the same game code with different starting circumstances.
 
 We'll throw a `gfx.Clear` in there too because we'll need one as soon as things start moving.
 
@@ -69,31 +69,24 @@ PUB Main
         gfx.Sprite (@centerline_gfx, 63, i*8, 0)
     
     gfx.Sprite (@ball_gfx, 60, 28, 0)
-    gfx.Sprite (@paddle_gfx, 4, 24, 0)
-    gfx.Sprite (@paddle_gfx, 116, 24, 0)
-    
-    lcd.Draw
 ----
 
-===== Adding a draw function
+===== Step 2: Making a draw function
+
+
 
 [source]
 .HelloPong.spin
 ----
-PUB Main
-    lcd.Start(gfx.Start)
-    ctrl.Start
-    
-    repeat
-        RunGame
-    
 PUB RunGame
 
     gfx.Clear
-    
-    DrawGame
-
-PUB DrawGame
++++    
++++    DrawGame
++++
++++    lcd.Draw
++++
++++PUB DrawGame
 
     repeat i from 0 to 7
         gfx.Sprite (@centerline_gfx, 63, i*8, 0)
@@ -101,8 +94,14 @@ PUB DrawGame
     gfx.Sprite (@ball_gfx, 60, 28, 0)
     gfx.Sprite (@paddle_gfx, 4, 24, 0)
     gfx.Sprite (@paddle_gfx, 116, 24, 0)
-    
-    lcd.Draw
+---    
+---    lcd.Draw
+
+DAT
+
+    ball_gfx
 ----
+
+
 
 To create our game setup, let's create
