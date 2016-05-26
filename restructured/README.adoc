@@ -325,6 +325,8 @@ DAT
     word    %%33
 ----
 
+View this example at `/tutorials/HelloPong/PongRestructured.spin`.
+
 === Total Recap
 
 In this section, you learned:
