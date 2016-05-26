@@ -131,9 +131,9 @@ PUB Main
 
 ==== A Table
 
-There really isn't much to draw here. We could make it fancy and add all kinds of crazy table graphics, but for now, let's keep it simple.
+There really isn't much to draw here. We could make it fancy and add all kinds of crazy table graphics, but for now, let's keep it simple and make a dotted line down the center.
 
-We could create a single graphic for the entire net, but that would be incredibly wasteful. Instead, we will add one little piece of the net that we will use to stamp the whole net.
+We could create one image for the entire net, but that would be wasteful. Instead, we'll take a single dot and copy it until it makes a line.
 
 // diagram of how stamping works
 
