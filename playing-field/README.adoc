@@ -268,8 +268,6 @@ So take this code snippet:
 ----
 
 
-
-
 [NOTE]
 You may have noticed we didn't add the score board. That one's a bit more complicated, so we'll add it in a later section.
 
