@@ -193,7 +193,7 @@ PUB RunGame
     gfx.Clear
 ----
 
-Then we change all of our `gfx.Sprite` commands (except `@centerline`) to use the new variables.
+Then we change all of our `gfx.Sprite` commands (except `@centerline`) to use the new variables. The center line doesn't move so it doesn't need a variable.
 
 [source, language='pub']
 .HelloPong.spin
