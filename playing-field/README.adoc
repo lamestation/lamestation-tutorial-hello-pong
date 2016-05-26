@@ -163,7 +163,7 @@ We'll add the graphics for the center line. It's just a tiny gray smudge.
 +++    word    %%33
 ----
 
-Then we add our first variable `i` for array indexing.
+Add our first variable `i` for array indexing.
 
 [source]
 .HelloPong.spin
@@ -172,7 +172,9 @@ VAR
     byte    i
 ----
 
-We'll draw that little spot on the screen 8 times, for a dotted line 64 pixels long.
+We'll draw that little spot on the screen 8 times to make a dotted line 64 pixels long. Remember, the ball and paddles sit _on top_ of the table, so the line should be drawn first. 
+
+*It's like painting a picture!*
 
 [source]
 .HelloPong.spin
@@ -187,6 +189,29 @@ PUB Main
     gfx.Sprite (@ball_gfx, 64, 32, 0)
     gfx.Sprite (@paddle_gfx, 4, 32, 0)
 ----
+
+image:whiteline.png[]
+
+We have a working dotted line. One problem though: everything is the same color so it just kind of blends together.
+
+The ball and paddles are white, so let's make the net gray. 
+
+[source, language='dat']
+.HelloPong.spin
+----
+    centerline_gfx
+    word    0
+    word    2, 4
+***    word    %%33
+***    word    %%33
+***    word    %%33
+***    word    %%33
+----
+
+[TIP]
+A gray pixel is `%%3` on LameStation.
+
+If we look at it now, it's starting to look pretty slick. Check it out.
 
 image:grayline.png[]
 
