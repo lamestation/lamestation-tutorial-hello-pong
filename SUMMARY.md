@@ -2,7 +2,7 @@
 
 * [Hello Pong](README.adoc)
 * [The Playing Field](playing-field/README.adoc)
-   * Finding Your Center
+* Finding Your Center
 * [Pong, Restructured](restructured/README.adoc)
 * The Ball
 * The Player
