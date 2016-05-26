@@ -34,8 +34,6 @@ Now, that's what a pong game has in it, but what about gameplay? What _happens_ 
 
 That's everything that happens in our game, so that's how we should organize it.
 
-==== Setup and Go
-
 A pattern you will commonly see when programming is a setup / run cycle. That is:
 
 - A *setup* phase where all the key variable and starting conditions for the program are set.
@@ -45,7 +43,7 @@ It's kind of like playing with dominoes. You _set up_ all the dominoes, then *ru
 
 We had setup and run code in _SNAKE_, but we did it haphazardly just when we needed it. Now we're going to do it for real.
 
-===== Step 1: Adding the game loop
+==== Running the game
 
 Let's move what we have into a running loop. Having your game loop in a separate function means you can use the same game code with different starting circumstances.
 
@@ -71,9 +69,68 @@ PUB Main
     gfx.Sprite (@ball_gfx, 60, 28, 0)
 ----
 
-===== Step 2: Making a draw function
+==== Setting up the game
 
+We need to restart all the moving parts we're going to have in pong, but currently there are none. Let's tie the paddles and ball to some variables, so that we'll be able to interact with them.
 
+There are two players, one for each paddle, so for simplicity, let's control them separately.
+
+[source]
+.HelloPong.spin
+----
+VAR
+    byte    i
++++    
++++    byte    ballx
++++    byte    bally
++++    
++++    byte    playerx
++++    byte    playery
++++    
++++    byte    opponentx
++++    byte    opponenty
+
+PUB Main
+    lcd.Start(gfx.Start)
+----
+
+We're going to create a new function that runs before the game loop that sets the starting locations for all of our sprites.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+
++++    SetupGame
+
+    repeat
+        RunGame
+
++++PUB SetupGame
++++
+PUB RunGame
+----
+
+We already found all the starting values in the previous section. We just need to move them into the new function.
+
+[source]
+.HelloPong.spin
+----
+PUB SetupGame
+
++++    ballx := 60
++++    bally := 28
++++    
++++    playerx := 4
++++    playery := 24
++++
++++    opponentx := 116
++++    opponenty := 24
+----
+
+Then we change all of our `gfx.Sprite` commands (except `@centerline`) to use the new variables.
 
 [source]
 .HelloPong.spin
@@ -81,27 +138,15 @@ PUB Main
 PUB RunGame
 
     gfx.Clear
-+++    
-+++    DrawGame
-+++
-+++    lcd.Draw
-+++
-+++PUB DrawGame
 
     repeat i from 0 to 7
         gfx.Sprite (@centerline_gfx, 63, i*8, 0)
-
-    gfx.Sprite (@ball_gfx, 60, 28, 0)
-    gfx.Sprite (@paddle_gfx, 4, 24, 0)
-    gfx.Sprite (@paddle_gfx, 116, 24, 0)
----    
----    lcd.Draw
-
-DAT
-
-    ball_gfx
+    
+***    gfx.Sprite (@ball_gfx, ballx, bally, 0)
+***    gfx.Sprite (@paddle_gfx, playerx, playery, 0)
+***    gfx.Sprite (@paddle_gfx, opponentx, opponenty, 0)
+    
+    lcd.Draw
 ----
 
-
-
-To create our game setup, let's create
+Well, that wasn't so bad! Organizing your code takes a little extra work, but it's totally worth it, because it'll be so much easier to understand in the long run, as the program gets more complicated.
