@@ -31,7 +31,7 @@ PUB Main
 
 Now, before we add graphics and start building out our game, let's take a moment to think about the _defining essence_ of our game.
 
-This is a pong game, so what does a pong game need?
+This is a pong game, so what does a pong game need? In the last section, we made a nice list.
 
 // picture of ping pong table would be nice.
 
