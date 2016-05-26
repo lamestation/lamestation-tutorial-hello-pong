@@ -232,7 +232,26 @@ So take this code snippet:
     lcd.Draw
 ----
 
-- 
+- The center line is 2 pixels wide, so we should subtract 1 to center it.
++
+    x = 64 - 1 = 63
+    
+- The left paddle should be 4 pixels from the edge, so it's fine where it is.
++
+    x = 4
+    
+- The right paddle is falling off the screen! We want its right side 4 pixels from the edge. Since it's 8 pixels wide, we need to subtract 8.
++
+    x = 124 - 8 = 116
+    
+- Both paddles need to start centered. They're 16 pixels high, so we'll subtract half to center them vertically.
++
+    y = 32 - 8 = 24
+    
+- The ball is 8 pixels wide and tall, and belongs in the center of the screen.
++
+    x = 64 - 4 = 60
+    y = 32 - 4 = 28
 
 
 [source, language='pub']
@@ -241,9 +260,9 @@ So take this code snippet:
     repeat i from 0 to 7
         gfx.Sprite (@centerline_gfx, 63, i*8, 0)
     
-    gfx.Sprite (@ball_gfx, 64, 32, 0)
-    gfx.Sprite (@paddle_gfx, 4, 32, 0)
-    gfx.Sprite (@paddle_gfx, 124, 32, 0)
+    gfx.Sprite (@ball_gfx, 60, 28, 0)
+    gfx.Sprite (@paddle_gfx, 4, 24, 0)
+    gfx.Sprite (@paddle_gfx, 116, 24, 0)
     
     lcd.Draw
 ----
