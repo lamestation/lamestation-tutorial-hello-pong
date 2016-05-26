@@ -69,6 +69,55 @@ PUB Main
     gfx.Sprite (@ball_gfx, 60, 28, 0)
 ----
 
+Better, but still not great. Let's move the drawing into its own function too.
+
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
+    
+    repeat
+        RunGame
+    
+PUB RunGame
+
+    gfx.Clear
+
+---    repeat i from 0 to 7
+---        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+---    
+---    gfx.Sprite (@ball_gfx, 60, 28, 0)
+---    gfx.Sprite (@paddle_gfx, 4, 24, 0)
+---    gfx.Sprite (@paddle_gfx, 116, 24, 0)
++++    DrawGraphics
+    
+    lcd.Draw
+
++++PUB DrawGraphics
++++
++++    repeat i from 0 to 7
++++        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
++++
++++    gfx.Sprite (@ball_gfx, 60, 28, 0)
++++    gfx.Sprite (@paddle_gfx, 4, 24, 0)
++++    gfx.Sprite (@paddle_gfx, 116, 24, 0)
++++
+DAT
+
+    ball_gfx
+    word    0
+    word    8, 8
+----
+
+====
+*"BUT WHY?"*, you may be asking. It doesn't make the program faster. it doesn't add a feature, but it does make the program easier to read.
+
+That, my friends, is called *refactoring*, and it doesn't look like much, but it could mean the difference between being able to write a 1,000 line program and a 1,000,000 line program.
+====
+
 ==== Setting up the game
 
 We need to restart all the moving parts we're going to have in pong, but currently there are none. Let's tie the paddles and ball to some variables, so that we'll be able to interact with them.
