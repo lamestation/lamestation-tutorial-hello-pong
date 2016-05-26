@@ -69,9 +69,9 @@ PUB Main
 +++    gfx.Clear
 
     repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+        gfx.Sprite (@centerline_gfx, 64 - gfx.Width (@centerline_gfx) / 2, i*8, 0)
     
-    gfx.Sprite (@ball_gfx, 60, 28, 0)
+    gfx.Sprite (@ball_gfx, 64 - gfx.Width (@ball_gfx) / 2, 32 - gfx.Height (@ball_gfx) / 2, 0)
 ----
 
 Better, but still not great. Let's move the drawing into its own function too.
@@ -87,11 +87,11 @@ PUB RunGame
     gfx.Clear
 
 ---    repeat i from 0 to 7
----        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+---        gfx.Sprite (@centerline_gfx, 64 - gfx.Width (@centerline_gfx) / 2, i*8, 0)
 ---    
----    gfx.Sprite (@ball_gfx, 60, 28, 0)
----    gfx.Sprite (@paddle_gfx, 4, 24, 0)
----    gfx.Sprite (@paddle_gfx, 116, 24, 0)
+---    gfx.Sprite (@ball_gfx, 64 - gfx.Width (@ball_gfx) / 2, 32 - gfx.Height (@ball_gfx) / 2, 0)
+---    gfx.Sprite (@paddle_gfx, 4, 32 - gfx.Height (@paddle_gfx) / 2, 0)
+---    gfx.Sprite (@paddle_gfx, 124 - gfx.Width (@paddle_gfx), 32 - gfx.Height (@paddle_gfx) / 2, 0)
 +++    DrawGraphics
     
     lcd.Draw
@@ -99,11 +99,11 @@ PUB RunGame
 +++PUB DrawGraphics
 +++
 +++    repeat i from 0 to 7
-+++        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
-+++
-+++    gfx.Sprite (@ball_gfx, 60, 28, 0)
-+++    gfx.Sprite (@paddle_gfx, 4, 24, 0)
-+++    gfx.Sprite (@paddle_gfx, 116, 24, 0)
++++        gfx.Sprite (@centerline_gfx, 64 - gfx.Width (@centerline_gfx) / 2, i*8, 0)
++++    
++++    gfx.Sprite (@ball_gfx, 64 - gfx.Width (@ball_gfx) / 2, 32 - gfx.Height (@ball_gfx) / 2, 0)
++++    gfx.Sprite (@paddle_gfx, 4, 32 - gfx.Height (@paddle_gfx) / 2, 0)
++++    gfx.Sprite (@paddle_gfx, 124 - gfx.Width (@paddle_gfx), 32 - gfx.Height (@paddle_gfx) / 2, 0)
 +++
 DAT
 
@@ -173,6 +173,8 @@ PUB RunGame
 
 We already found all the starting values in the previous section. We just need to move them into the new function.
 
+This is good too because all those `gfx.Width`/`gfx.Height` calls were getting messy. Now we only call them when we need them.
+
 [source, language='pub']
 .HelloPong.spin
 ----
@@ -181,14 +183,14 @@ We already found all the starting values in the previous section. We just need t
     
 PUB SetupGame
 +++
-+++    ballx := 60
-+++    bally := 28
++++    ballx := 64 - gfx.Width (@ball_gfx) / 2
++++    bally := 32 - gfx.Height (@ball_gfx) / 2
 +++    
 +++    playerx := 4
-+++    playery := 24
++++    playery := 32 - gfx.Height (@paddle_gfx) / 2
 +++
-+++    opponentx := 116
-+++    opponenty := 24
++++    opponentx := 124 - gfx.Width (@paddle_gfx)
++++    opponenty := 32 - gfx.Height (@paddle_gfx) / 2
 
 PUB RunGame
 
@@ -256,14 +258,14 @@ PUB Main
     
 PUB SetupGame
 
-    ballx := 60
-    bally := 28
+    ballx := 64 - gfx.Width (@ball_gfx) / 2
+    bally := 32 - gfx.Height (@ball_gfx) / 2
     
     playerx := 4
-    playery := 24
+    playery := 32 - gfx.Height (@paddle_gfx) / 2
 
-    opponentx := 116
-    opponenty := 24
+    opponentx := 124 - gfx.Width (@paddle_gfx)
+    opponenty := 32 - gfx.Height (@paddle_gfx) / 2
     
 PUB RunGame
 
