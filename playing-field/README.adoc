@@ -33,14 +33,14 @@ This is a pong game, so thing ping pong. What does it need?
 
 // picture of ping pong table would be nice.
 
-- A table
 - A ball
 - Two paddles
+- A table
 - A score board
 
 ==== A Ball
 
-Add the graphics for the ball. A giant white square for consistency, but you can make the ball whatever you want it to be.
+Add the graphics for the ball. I'm using a giant white square because it's very pong-ey, but you can make the ball whatever you want it to be.
 
 [source, language='dat']
 .HelloPong.spin
@@ -64,7 +64,7 @@ PUB Main
 +++    word    %%11111111
 ----
 
-Now draw the ball to a spot in the center of the screen.
+Draw the ball to a nice spot in the center of the screen.
 
 [source]
 .HelloPong.spin
@@ -82,7 +82,7 @@ DAT
 ball_gfx
 ----
 
-==== A Paddle
+==== Two Paddles
 
 The paddle graphics are next. Again, a white rectangle is _pretty much_ what the original pong had, so let's just use that.
 
@@ -113,7 +113,7 @@ The paddle graphics are next. Again, a white rectangle is _pretty much_ what the
 +++    word    %%11111111
 ----
 
-You need to draw the paddles twice, once on each side of the screen.
+Draw the paddles twice, once on each side of the screen.
 
 [source]
 .HelloPong.spin
@@ -150,16 +150,20 @@ We could create one image for the entire net, but that would be wasteful. Instea
 +++    word    %%11
 ----
 
-Add our first variable `i` for array indexing.
+Add a variable `i` for array indexing.
 
-[source]
+[source, language='obj']
 .HelloPong.spin
 ----
-VAR
-    byte    i
+    ctrl : "LameControl"
+ 
++++VAR
++++    byte    i    
+
+PUB Main
 ----
 
-We'll draw that little spot on the screen 8 times to make a dotted line 64 pixels long. Remember, the ball and paddles sit _on top_ of the table, so the line should be drawn first. 
+We'll draw the dot on the screen 8 times to make a dotted line 64 pixels long. Remember, the ball and paddles sit _on top_ of the table, so the line should be drawn first. 
 
 *It's like painting a picture!*
 
@@ -171,7 +175,7 @@ PUB Main
     ctrl.Start
 
 +++    repeat i from 0 to 7
-+++        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
++++        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
     
     gfx.Sprite (@ball_gfx, 64, 32, 0)
     gfx.Sprite (@paddle_gfx, 4, 32, 0)
@@ -179,9 +183,13 @@ PUB Main
 
 image:whiteline.png[]
 
-We have a working dotted line. One problem though: everything is the same color so it just kind of blends together.
+We have a dotted line!
 
-The ball and paddles are white, so let's make the net gray. 
+==== The blob
+
+There's one problem: everything is the same color so it just kind of blends together.
+
+The ball and paddles are white, so let's make the net gray.
 
 [source, language='dat']
 .HelloPong.spin
@@ -201,6 +209,47 @@ A gray pixel is `%%3` on LameStation.
 If we look at it now, it's starting to look pretty slick. Check it out.
 
 image:grayline.png[]
+
+
+==== Finding your center
+
+One _more_ thing to fix: why is everything weirdly off-center?
+
+That's because a sprite's position on the screen is relative to the top-left corner. So if you want to position things correctly on the screen, you have to keep that in mind.
+
+So take this code snippet:
+
+[source, language='pub']
+.HelloPong.spin
+----
+    repeat i from 0 to 7
+        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
+    gfx.Sprite (@paddle_gfx, 4, 32, 0)
+    gfx.Sprite (@paddle_gfx, 124, 32, 0)
+    
+    lcd.Draw
+----
+
+- 
+
+
+[source, language='pub']
+.HelloPong.spin
+----
+    repeat i from 0 to 7
+        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+    
+    gfx.Sprite (@ball_gfx, 64, 32, 0)
+    gfx.Sprite (@paddle_gfx, 4, 32, 0)
+    gfx.Sprite (@paddle_gfx, 124, 32, 0)
+    
+    lcd.Draw
+----
+
+
+
 
 [NOTE]
 You may have noticed we didn't add the score board. That one's a bit more complicated, so we'll add it in a later section.
@@ -227,7 +276,7 @@ PUB Main
     ctrl.Start
 
     repeat i from 0 to 7
-        gfx.Sprite (@centerline_gfx, 63, i*8, 0)
+        gfx.Sprite (@centerline_gfx, 64, i*8, 0)
     
     gfx.Sprite (@ball_gfx, 64, 32, 0)
     gfx.Sprite (@paddle_gfx, 4, 32, 0)
