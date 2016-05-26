@@ -1,8 +1,8 @@
 # Summary
 
 * [Hello Pong](README.adoc)
-* [Restructured](restructured.adoc)
 * [The Playing Field](playing-field/README.adoc)
+* [Restructured](restructured.adoc)
 * The Ball
 * The Player
 * The Opponent
