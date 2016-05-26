@@ -45,13 +45,16 @@ We had setup and run code in _SNAKE_, but we did it haphazardly just when we nee
 
 ==== Running the game
 
-Let's move what we have into a running loop. Having your game loop in a separate function means you can use the same game code with different starting circumstances.
+Let's move what we have into a running loop. This allows us to restart the game at will, and redraw the screen outside of the game loop, which is useful for things like animations, events, even title screens.
 
 We'll throw a `gfx.Clear` in there too because we'll need one as soon as things start moving.
 
 [source]
 .HelloPong.spin
 ----
+VAR
+    byte    i
+
 PUB Main
     lcd.Start(gfx.Start)
     ctrl.Start
@@ -71,14 +74,9 @@ PUB Main
 
 Better, but still not great. Let's move the drawing into its own function too.
 
-
-[source]
+[source, language='pub']
 .HelloPong.spin
 ----
-PUB Main
-    lcd.Start(gfx.Start)
-    ctrl.Start
-    
     repeat
         RunGame
     
@@ -124,9 +122,11 @@ We need to restart all the moving parts we're going to have in pong, but current
 
 There are two players, one for each paddle, so for simplicity, let's control them separately.
 
-[source]
+[source, language='obj']
 .HelloPong.spin
 ----
+    ctrl : "LameControl"
+    
 VAR
     byte    i
 +++    
@@ -141,6 +141,9 @@ VAR
 
 PUB Main
     lcd.Start(gfx.Start)
+    ctrl.Start
+    
+    repeat
 ----
 
 We're going to create a new function that runs before the game loop that sets the starting locations for all of our sprites.
@@ -160,15 +163,22 @@ PUB Main
 +++PUB SetupGame
 +++
 PUB RunGame
+
+    gfx.Clear
+    
+    DrawGraphics
 ----
 
 We already found all the starting values in the previous section. We just need to move them into the new function.
 
-[source]
+[source, language='pub']
 .HelloPong.spin
 ----
+    repeat
+        RunGame
+    
 PUB SetupGame
-
++++
 +++    ballx := 60
 +++    bally := 28
 +++    
@@ -177,13 +187,19 @@ PUB SetupGame
 +++
 +++    opponentx := 116
 +++    opponenty := 24
+
+PUB RunGame
+
+    gfx.Clear
 ----
 
 Then we change all of our `gfx.Sprite` commands (except `@centerline`) to use the new variables.
 
-[source]
+[source, language='pub']
 .HelloPong.spin
 ----    
+    lcd.Draw
+
 PUB DrawGraphics
 
     repeat i from 0 to 7
@@ -192,6 +208,11 @@ PUB DrawGraphics
 ***    gfx.Sprite (@ball_gfx, ballx, bally, 0)
 ***    gfx.Sprite (@paddle_gfx, playerx, playery, 0)
 ***    gfx.Sprite (@paddle_gfx, opponentx, opponenty, 0)
+
+DAT
+
+    ball_gfx
+    word    0
 ----
 
-Well, that wasn't so bad! Organizing your code takes a little extra work, but it's totally worth it, because it'll be so much easier to understand in the long run, as the program gets more complicated.
+Well, that wasn't so bad! Organizing your code takes a little extra work, and it's hard to see the results of it immediately, but it's totally worth it. It'll be so much easier to understand in the long run, as the program gets more complicated.
