@@ -2,7 +2,7 @@
 
 * [Hello Pong](README.adoc)
 * [The Playing Field](playing-field/README.adoc)
-* Restructured
+* [Restructured](restructured.adoc)
 * The Ball
 * The Player
 * The Opponent
