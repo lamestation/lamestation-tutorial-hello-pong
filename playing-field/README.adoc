@@ -165,7 +165,7 @@ We'll add the graphics for the center line. It's just a tiny gray smudge.
 +++    word    %%33
 ----
 
-Then we add our first variable `i` just for array indexing.
+Then we add our first variable `i` for array indexing.
 
 [source]
 .HelloPong.spin
