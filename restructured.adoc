@@ -8,30 +8,11 @@ Which is... AWESOME!
 
 === Instructions
 
-We'll start out with the LameStation Basic Template.
-
-[source]
-.HelloPong.spin
-----
-CON
-    _clkmode = xtal1 + pll16x
-    _xinfreq = 5_000_000
-
-OBJ
-    lcd  : "LameLCD"
-    gfx  : "LameGFX"
-    ctrl : "LameControl"
-
-PUB Main
-    lcd.Start(gfx.Start)
-    ctrl.Start
-----
-
 ==== If a Pong Ball's in a Forest...
 
 Now, before we add graphics and start building out our game, let's take a moment to think about the _defining essence_ of our game.
 
-This is a pong game, so what does a pong game need? In the last section, we made a nice list.
+This is a pong game, so what does a pong game need? In the last section, we made a nice list to answer that question.
 
 // picture of ping pong table would be nice.
 
@@ -40,7 +21,7 @@ This is a pong game, so what does a pong game need? In the last section, we made
 - Two paddles
 - A score board
 
-That's what a pong game _has_, but what about gameplay? What _happens_ in the game?
+Now, that's what a pong game _has_, but what about gameplay? What _happens_ in the game?
 
 - There's a field; it just sits there
 - Either player can move a paddle up or down
@@ -50,7 +31,7 @@ That's what a pong game _has_, but what about gameplay? What _happens_ in the ga
 - First one to 9 points wins, and the game starts over
 - The opponent might be a computer
 
-That's pretty much it. That's everything that happens in our entire game, and that gives us an idea of how we should organize it.
+That's pretty much it. That's everything that happens in our entire game, so that's how we should organize it.
 
 ==== Loop de loop
 
