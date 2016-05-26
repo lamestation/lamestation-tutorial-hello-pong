@@ -1,6 +1,6 @@
 = Hello Pong
 
-image:completedgame.png[]
+image:/completedgame.png[]
 
 *Task:* Create the legendary and amazing Pong! +
 *Difficulty:* Beginner +
