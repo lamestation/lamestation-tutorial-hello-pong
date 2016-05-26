@@ -8,31 +8,7 @@ Which is... AWESOME!
 
 === Instructions
 
-[source]
-.HelloPong.spin
-----
-
-----
-
-
-
-
-
-
-
-
-
-
-
-
-
-== The Playing Field
-
-In this section, we're going to lay the groundwork for our pong game by adding the basic graphics and laying them out on the screen.
-
-=== Instructions
-
-Start with LameStation Basic Template as we did in the _SNAKE_ tutorial.
+We'll start out with the LameStation Basic Template.
 
 [source]
 .HelloPong.spin
@@ -51,14 +27,62 @@ PUB Main
     ctrl.Start
 ----
 
-This is a pong game, so thing ping pong. What does it need?
+==== If a Pong Ball's in a Forest...
+
+Now, before we add graphics and start building out our game, let's take a moment to think about the _defining essence_ of our game.
+
+This is a pong game, so what does a pong game need?
 
 // picture of ping pong table would be nice.
 
+- A table
 - A ball
 - Two paddles
-- A table
 - A score board
+
+That's what a pong game _has_, but what about gameplay? What _happens_ in the game?
+
+- There's a field; it just sits there
+- Either player can move a paddle up or down
+- A ball bounces around the screen
+  - If it hits a paddle, it bounces back the other way
+  - If it goes the past paddle, the other player scores a point, and the field resets
+- First one to 9 points wins, and the game starts over
+- The opponent might be a computer
+
+That's pretty much it. That's everything that happens in our entire game, and that gives us an idea of how we should organize it.
+
+==== Loop de loop
+
+First and foremost, everything that happens in our game needs to happen in a loop. Loops are the magic that makes the world go round.
+
+[source]
+.HelloPong.spin
+----
+PUB Main
+    lcd.Start(gfx.Start)
+    ctrl.Start
++++    
++++    repeat
++++        GameLoop
++++        
++++PUB GameLoop
++++
+----
+
+
+
+
+
+
+== The Playing Field
+
+In this section, we're going to lay the groundwork for our pong game by adding the basic graphics and laying them out on the screen.
+
+=== Instructions
+
+
+
 
 ==== A Ball
 
