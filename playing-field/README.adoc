@@ -4,7 +4,7 @@ In this section, we're going to lay the groundwork for our pong game by adding t
 
 === Instructions
 
-Start with LameStation Basic Template again.
+Start with LameStation Basic Template as we did in the _SNAKE_ tutorial.
 
 [source]
 .HelloPong.spin
@@ -125,11 +125,15 @@ PUB Main
 
 ==== A Table
 
-It's kind of a misnomer that they call it pong, because this game really plays more like an air hockey machine.
+I think it's kind of a misnomer that it's called pong, because this game really plays more like an air hockey machine than a ping pong table.
 
 // picture of air hockey machine from above.
 
-But oh, well, history is history, and I guess it's kind of like ping pong. So let's draw our net: how about a dotted line down the middle?
+But oh, well, history is history, and I guess it's kind of like ping pong, if you were playing in a room the size of the table...
+
+Anyway, let's draw our net: how about a dotted line down the middle?
+
+===== Finding Your Center
 
 We could create a single graphic for the entire net, but that would be incredibly wasteful. Instead, we will add one little piece of the net that we will use to stamp the whole net.
 
