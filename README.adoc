@@ -7,3 +7,8 @@ image:/completedgame.png[]
 *Purpose:* Experiment with some more complex game mechanics and pretty graphics.
 
 *Situation:*
+
+You are... a disembodied paddle. Your opponent is too. Now you've got to hit a ball past your opponent before it gets hit past you.
+
+Pong is hardcore. It's one of the first games that anyone actually cared about, and, as the first successful arcade game ever, helped jumpstart this whole "_video game industry_" thing.
+
