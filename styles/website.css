@@ -39,6 +39,14 @@
     color: #000;
 }
 
+.book .book-summary ul.summary li.chapter a::before {
+    content: counter(chapter-cnt)". ";
+    counter-increment: chapter-cnt;
+    width: 30px;
+    text-align: right;
+    display: inline-block;
+}
+
 .book .book-summary ul.summary li a:hover {
     color: #000;
     text-shadow:
@@ -50,6 +58,7 @@
         0 -1px 0 #f57a09,
         -1px 0 0 #f57a09,
         1px 0 0 #f57a09;
+    text-decoration: none;
 }
 
 .book .book-summary ul.summary li.active a {
@@ -62,6 +71,7 @@
 
 .book .book-summary {
     background: #edba09;
+    counter-reset: chapter-cnt;
 }
 
 .book .book-body .navigation.navigation-next {
