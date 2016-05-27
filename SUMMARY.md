@@ -1,6 +1,6 @@
 # Summary
 
-* [Hello Pong](README.adoc)
+* [The Mission](README.adoc)
 * [The Playing Field](playing-field/README.adoc)
 * [Finding Your Center](finding-your-center/README.adoc)
 * [Pong, Restructured](restructured/README.adoc)
